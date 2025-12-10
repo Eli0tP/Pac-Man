@@ -11,7 +11,7 @@ public class Cherry implements GameObject {
     private int y = 120;
     private int gridSize = 30;
     private BufferedImage cherry = null;
-
+    private int score = 2;
 
     public Cherry(){
         try{

@@ -11,6 +11,7 @@ public class Points implements GameObject {
     private int y = 120;
     private int gridSize = 16;
     private BufferedImage dot = null;
+    private int score = 1;
 
 
 

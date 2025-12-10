@@ -7,10 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Wall implements GameObject{
-    private int x_debut;
-    private int y_debut;
-    private int x_fin;
-    private int y_fin;
+    private int x;
+    private int y;
     private int grideSize;
     private BufferedImage wall = null;
 
@@ -24,7 +22,7 @@ public class Wall implements GameObject{
     }
 
     public void draw(Graphics g) {
-        g.drawImage(wall, x_debut, y_debut, grideSize, grideSize, null);
+        g.drawImage(wall, x, y, grideSize, grideSize, null);
     }
 
     public void update(){
