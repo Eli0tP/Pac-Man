@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Points implements GameObject {
     private int x;
     private int y;
-    private int gridSize = 16;
+    private int gridSize = 32;
     private BufferedImage dot = null;
     private int score = 1;
 

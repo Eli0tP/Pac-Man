@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         gameObjects.add(pacMan);
 
         /* for liste des coordonnes des points */
-        int[][] cooPoints = { {120,64},{300,300},{180,500},{64,300} };
+        int[][] cooPoints = { {64,32},{300,300},{180,500},{64,300} };
         for(int[] cooPoint : cooPoints){
             if(0.2 > Math.random()){
                 cherry = new Cherry(cooPoint[0],cooPoint[1]);
