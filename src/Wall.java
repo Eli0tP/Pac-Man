@@ -9,12 +9,14 @@ import java.io.IOException;
 public class Wall implements GameObject{
     private int x;
     private int y;
-    private int grideSize;
+    private int grideSize = 32;
     private BufferedImage wall = null;
 
 
-    public Wall() {
+    public Wall(int x, int y) {
         try {
+            this.x = x;
+            this.y = y;
             wall = ImageIO.read(new File("resources/Pac_Man_Wall.png"));
         } catch (IOException e) {
             System.out.println("Erreur l'image Wall");

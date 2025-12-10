@@ -11,6 +11,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private PacMan pacMan;
     private Points points;
     private Cherry cherry;
+    private Wall wall;
     private final ArrayList<GameObject> gameObjects = new ArrayList<>();
 //    private final ArrayList<Points> pointsObject = new ArrayList<Points>();
 
@@ -31,6 +32,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 gameObjects.add(points);
             }
         }
+
+        int[][] coowalls = { {12,22},{100,200},{180,700},{64,250} };
+        for(int[] coowall : coowalls){
+
+            wall = new Wall(coowall[0],coowall[1]);
+            gameObjects.add(wall);
+        }
+
 
         Timer timer = new Timer(16, this);
         timer.start();
