@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Cherry implements GameObject {
+public class Cherry implements GameObject{
     private int x;
     private int y;
-    private int gridSize = 30;
+    private int gridSize = 16;
     private BufferedImage cherry = null;
     private int score = 2;
 

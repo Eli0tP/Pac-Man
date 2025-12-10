@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Points implements GameObject {
     private int x;
@@ -32,4 +34,11 @@ public class Points implements GameObject {
 
     public void update() {
     }
+
+//    public void distRemove(ArrayList<GameObject> liste , int xPac, int yPac, int xPoint, int yPoint) {
+//        double distance = Math.sqrt(Math.pow((xPoint - xPac), 2) + Math.pow((yPoint - yPac), 2));
+//        if (distance < (double) 16){
+//            liste.remove();
+//        }
+//    }
 }
