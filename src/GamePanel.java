@@ -21,13 +21,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         gameObjects.add(pacMan);
 
         /* for liste des coordonnes des points */
-        boolean x = false;
-        if(x){
-            cherry = new Cherry();
-            gameObjects.add(cherry);
-        } else {
-            points = new Points();
-            gameObjects.add(points);
+        int[][] cooPoints = { {120,64},{300,300},{180,500},{64,300} };
+        for(int[] cooPoint : cooPoints){
+            if(0.2 > Math.random()){
+                cherry = new Cherry(cooPoint[0],cooPoint[1]);
+                gameObjects.add(cherry);
+            } else {
+                points = new Points(cooPoint[0],cooPoint[1]);
+                gameObjects.add(points);
+            }
         }
 
         Timer timer = new Timer(16, this);
