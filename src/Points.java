@@ -9,13 +9,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Points implements GameObject {
-    private int x;
-    private int y;
-    private int gridSize = 32;
+    protected int x;
+    protected int y;
+    protected int gridSize = 32;
+    protected int score = 1;
     private BufferedImage dot = null;
-    private int score = 1;
 
-
+    public Points(){
+    }
 
     public Points(int x, int y) {
         try {
@@ -35,10 +36,15 @@ public class Points implements GameObject {
     public void update() {
     }
 
-//    public void distRemove(ArrayList<GameObject> liste , int xPac, int yPac, int xPoint, int yPoint) {
-//        double distance = Math.sqrt(Math.pow((xPoint - xPac), 2) + Math.pow((yPoint - yPac), 2));
-//        if (distance < (double) 16){
-//            liste.remove();
-//        }
-//    }
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public int getScore(){
+        return score;
+    }
 }

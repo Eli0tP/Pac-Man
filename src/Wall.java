@@ -29,4 +29,12 @@ public class Wall implements GameObject{
 
     public void update(){
     }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
 }

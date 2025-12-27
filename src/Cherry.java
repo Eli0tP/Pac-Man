@@ -6,15 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Cherry implements GameObject{
-    private int x;
-    private int y;
-    private int gridSize = 32;
+public class Cherry extends Points{
     private BufferedImage cherry = null;
-    private int score = 2;
 
     public Cherry(int x, int y){
         try{
+            this.score = 2;
             this.x = x;
             this.y = y;
             cherry = ImageIO.read(new File("resources/Pac_Man_Cherry.png"));
@@ -25,8 +22,5 @@ public class Cherry implements GameObject{
 
     public void draw(Graphics g){
         g.drawImage(cherry,x,y,gridSize,gridSize,null);
-    }
-
-    public void update() {
     }
 }

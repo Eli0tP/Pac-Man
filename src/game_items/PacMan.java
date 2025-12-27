@@ -87,4 +87,18 @@ public class PacMan implements GameObject {
         return x%gridSize == 0 && y%gridSize == 0;
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public void collisionMur() {
+        this.x -= this.dx;
+        this.y -= this.dy;
+        this.dx = 0;
+        this.dy = 0;
+    }
 }
