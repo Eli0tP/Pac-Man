@@ -13,6 +13,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private Cherry cherry;
     private Wall wall;
     private final ArrayList<GameObject> gameObjects = new ArrayList<>();
+    private int score = 0;
 //    private final ArrayList<Object> removedObjects = new ArrayList<>();
 //    private final ArrayList<Points> pointsObject = new ArrayList<Points>();
 
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
                 if (distance < 20) {
                     objectsToRemove.add(obj);
+                    score += p.getScore();
                 }
             }else if (obj instanceof Wall) {
                 Wall w = (Wall) obj;
@@ -125,10 +127,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(g);
         }
-
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+        g.drawString("SCORE: " + score, 15, 25);
     }
 }

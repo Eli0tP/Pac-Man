@@ -23,4 +23,11 @@ public class Cherry extends Points{
     public void draw(Graphics g){
         g.drawImage(cherry,x,y,gridSize,gridSize,null);
     }
+
+    @Override
+    public int getScore(){
+        return score;
+    }
+
+
 }
