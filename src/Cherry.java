@@ -11,7 +11,7 @@ public class Cherry extends Points{
 
     public Cherry(int x, int y){
         try{
-            this.score = 2;
+            this.score = 10;
             this.x = x;
             this.y = y;
             cherry = ImageIO.read(new File("resources/Pac_Man_Cherry.png"));

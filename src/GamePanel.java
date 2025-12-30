@@ -4,6 +4,10 @@ import game_items.PacMan;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
@@ -14,6 +18,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private Wall wall;
     private final ArrayList<GameObject> gameObjects = new ArrayList<>();
     private int score = 0;
+    public int gridSize = 32;
 //    private final ArrayList<Object> removedObjects = new ArrayList<>();
 //    private final ArrayList<Points> pointsObject = new ArrayList<Points>();
 
@@ -23,25 +28,32 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         pacMan = new PacMan();
         gameObjects.add(pacMan);
 
-        /* for liste des coordonnes des points */
-        int[][] cooPoints = { {64,32},{300,300},{180,500},{64,300} };
-        for(int[] cooPoint : cooPoints){
-            if(0.2 > Math.random()){
-                cherry = new Cherry(cooPoint[0],cooPoint[1]);
-                gameObjects.add(cherry);
-            } else {
-                points = new Points(cooPoint[0],cooPoint[1]);
-                gameObjects.add(points);
+        String map = "src/map.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(map))) {
+            String line;
+            int row = 0;
+            while ((line = br.readLine()) != null) {
+                for (int col = 0; col < line.length(); col++) {
+                    int x = col * gridSize;
+                    int y = row * gridSize;
+                    char type = line.charAt(col);
+
+                    if (type == '1') {
+                        gameObjects.add(new Wall(x, y));
+                    } else if (type == '0') {
+                        if (Math.random() < 0.02) {
+                            gameObjects.add(new Cherry(x, y));
+                        } else {
+                            gameObjects.add(new Points(x, y));
+                        }
+                    } else if (type == '2') {
+                    }
+                }
+                row++;
             }
+        } catch (IOException e){
+            System.out.println("Le fichier map.txt est intouvable");
         }
-
-        int[][] coowalls = { {256,32},{100,200},{180,700},{64,250} };
-        for(int[] coowall : coowalls){
-
-            wall = new Wall(coowall[0],coowall[1]);
-            gameObjects.add(wall);
-        }
-
 
         Timer timer = new Timer(16, this);
         timer.start();
@@ -74,13 +86,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 }
             }else if (obj instanceof Wall) {
                 Wall w = (Wall) obj;
-                // On calcule la distance entre le centre de Pac-Man et le centre du mur
                 double distance = Math.sqrt(Math.pow((w.getX() - pacX), 2) + Math.pow((w.getY() - pacY), 2));
-
-                // Si la distance est inférieure à 32, on est "dans" le mur
-                if (distance < 32) { // 31 au lieu de 32 pour laisser une toute petite marge de sécurité
+                if (distance < 32) {
                     pacMan.collisionMur();
-                    return; // On arrête la boucle dès qu'un mur est touché
+                    return;
                 }
             }
         }
