@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private final ArrayList<GameObject> gameObjects = new ArrayList<>();
     private int score = 0;
     public int gridSize = 32;
+    private ArrayList<Teleporter> teleporters = new ArrayList<>();
 //    private final ArrayList<Object> removedObjects = new ArrayList<>();
 //    private final ArrayList<Points> pointsObject = new ArrayList<Points>();
 
@@ -29,6 +30,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         gameObjects.add(pacMan);
 
         String map = "src/map.txt";
+        int countTeleporter = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(map))) {
             String line;
             int row = 0;
@@ -47,9 +49,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                             gameObjects.add(new Points(x, y));
                         }
                     } else if (type == '2') {
+                        Teleporter tp = new Teleporter(x, y);
+                        gameObjects.add(tp);
+                        teleporters.add(tp);
+                        countTeleporter++;
                     }
                 }
                 row++;
+            }if (countTeleporter != 0 && countTeleporter != 2) {
+                System.out.println("La map contient " + countTeleporter + " téléporteur(s). Il en faut exactement 0 ou 2.");
+                System.exit(1);
             }
         } catch (IOException e){
             System.out.println("Le fichier map.txt est intouvable");
@@ -92,6 +101,29 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     return;
                 }
             }
+            else if (obj instanceof Teleporter) {
+            Teleporter tp = (Teleporter) obj;
+            // Calcul de la distance entre Pac-Man et le téléporteur
+            double distance = Math.sqrt(Math.pow((tp.getX() - pacX), 2) + Math.pow((tp.getY() - pacY), 2));
+
+            // Si on est assez proche du téléporteur
+            if (distance < 16) {
+                // On cherche l'autre téléporteur dans notre liste
+                Teleporter tpDestination = (teleporters.get(0) == tp) ? teleporters.get(1) : teleporters.get(0);
+
+                // On change les coordonnées de Pac-Man vers l'autre TP
+                // On ajoute/soustrait un petit décalage (gridSize) pour sortir de la zone de collision du TP de destination
+                if (tp.getX() < tpDestination.getX()) {
+                    // Si on vient de gauche, on réapparaît un peu plus à droite du TP droit
+                    pacMan.setX(tpDestination.getX() - gridSize);
+                } else {
+                    // Si on vient de droite, on réapparaît un peu plus à gauche du TP gauche
+                    pacMan.setX(tpDestination.getX() + gridSize);
+                }
+                pacMan.setY(tpDestination.getY());
+                return; // On sort de la collision pour éviter les bugs sur cette frame
+            }
+        }
         }
         gameObjects.removeAll(objectsToRemove);
     }
@@ -141,6 +173,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         }
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 18));
-        g.drawString("SCORE: " + score, 15, 25);
+        g.drawString("SCORE: " + score + pacMan.getX() + pacMan.getY(), 15, 25);
     }
 }
