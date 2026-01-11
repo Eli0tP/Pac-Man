@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Points implements GameObject {
     protected int x;
     protected int y;
-    protected int gridSize = 32;
+    protected int grideSize = 32;
     protected int score = 1;
     private BufferedImage dot = null;
 
@@ -30,7 +30,7 @@ public class Points implements GameObject {
 
     public void draw(Graphics g) {
         g.setColor(Color.YELLOW);
-        g.drawImage(dot, x, y, gridSize, gridSize, null);
+        g.drawImage(dot, x, y, grideSize, grideSize, null);
     }
 
     public void update() {

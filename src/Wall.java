@@ -7,9 +7,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class Wall implements GameObject{
-    private int x;
-    private int y;
-    private int grideSize = 32;
+    protected int x;
+    protected int y;
+    protected int grideSize = 32;
     private BufferedImage wall = null;
 
 
@@ -21,6 +21,9 @@ public class Wall implements GameObject{
         } catch (IOException e) {
             System.out.println("Erreur l'image Wall");
         }
+    }
+
+    public Wall() {
     }
 
     public void draw(Graphics g) {

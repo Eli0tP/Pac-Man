@@ -21,7 +21,7 @@ public class Cherry extends Points{
     }
 
     public void draw(Graphics g){
-        g.drawImage(cherry,x,y,gridSize,gridSize,null);
+        g.drawImage(cherry,x,y,grideSize,grideSize,null);
     }
 
     @Override

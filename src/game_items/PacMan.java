@@ -20,7 +20,8 @@ public class PacMan implements GameObject {
     private BufferedImage imgD = null;
     private BufferedImage imgR = null;
     private BufferedImage imgL = null;
-
+    private boolean estSuper = false;
+    private int tSuper = 0;
 
     public PacMan(){
         try {
@@ -38,6 +39,13 @@ public class PacMan implements GameObject {
     public void update() {
         updateSpeed();
         updatePosition();
+
+        if (estSuper) {
+            tSuper--;
+            if (tSuper <= 0) { /* Pour une raison inconnue le tSuper == 0 avait quelques erreurs et le timer devenait négatif*/
+                estSuper = false;
+            }
+        }
     }
 
     private void updateSpeed(){
@@ -58,6 +66,12 @@ public class PacMan implements GameObject {
 
     }
 
+    public void resetPosition() {
+        this.x = 32; // Coordonnée X de départ
+        this.y = 32 ; // Coordonnée Y de départ
+        this.dx = 0;     // On arrête le mouvement horizontal
+        this.dy = 0;
+    }
 
     public void keyDown(){
         futureDy = speed;
@@ -104,5 +118,12 @@ public class PacMan implements GameObject {
         this.y -= this.dy;
         this.dx = 0;
         this.dy = 0;
+    }
+
+    public boolean estSuper() { return estSuper;}
+
+    public void setSuper(boolean statut) {
+        this.estSuper = statut;
+        if (statut) this.tSuper = 300; // 600 = 10sec soit 10 * 60frames
     }
 }
